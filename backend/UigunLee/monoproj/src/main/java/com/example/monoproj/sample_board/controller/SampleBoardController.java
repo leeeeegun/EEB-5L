@@ -12,9 +12,13 @@ import com.example.monoproj.sample_board.service.response.CreateSampleBoardRespo
 import com.example.monoproj.sample_board.service.response.ListSampleBoardResponse;
 import com.example.monoproj.sample_board.service.response.ReadSampleBoardResponse;
 import com.example.monoproj.sample_board.service.response.UpdateSampleBoardResponse;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -56,5 +60,10 @@ public class SampleBoardController {
                 requestForm.toUpdateSampleBoardRequest()
         );
         return UpdateSampleBoardResponseForm.from(response);
+    }
+    @GetMapping("/login")
+    @Transactional
+    public void requestLogin(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
+        log.info("requestLogin(): code {}", code);
     }
 }
